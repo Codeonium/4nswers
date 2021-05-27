@@ -1,0 +1,9 @@
+
+
+invite in the settings for a collaborator
+
+clone the code => git clone (and the code from github)
+
+to go to checkout => git checkout -b develop
+
+go to feature same as above => git checkout -b feature
