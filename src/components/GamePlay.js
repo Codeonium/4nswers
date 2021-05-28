@@ -3,11 +3,12 @@ import PlayerInput from '../components/PlayerInput.js'
 import Timer from '../components/Timer.js'
 import RoundScore from '../components/RoundScore.js'
 
-const GamePlay = ({question, playerInput, placeholder, handleInputChange, timeRemaining, playerRoundScore, showScore, endOfGame, handleShowResultsButton}) => {
+const GamePlay = ({gameRound, question, playerInput, placeholder, handleInputChange, timeRemaining, playerRoundScore, showScore, endOfGame, handleShowResultsButton}) => {
     return (
         <>
             <Question questionText={question.question}/>
             <PlayerInput 
+                gameRound={gameRound}
                 playerInput={playerInput} 
                 placeholder={placeholder}
                 handleInputChange={(event) => handleInputChange(event)} 

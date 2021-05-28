@@ -140,6 +140,8 @@ const Game = () => {
         <>
             { !showResults ? (
                 <GamePlay
+                    gameRound={gameRound}
+                    placeholder={placeholder}
                     question={question}
                     playerInput={playerInput}
                     handleInputChange={(event) => handleInputChange(event)}
