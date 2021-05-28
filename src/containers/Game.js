@@ -12,6 +12,7 @@ const Game = () => {
     const [roundNumber, setRoundNumber] = useState("one");
     const [question, setQuestion] = useState({});
     const [timeRemaining, setTimeRemaining] = useState(8 * 1000);
+    const [intervalId, setIntervalId] = useState(null);
 
     const getRandomNumber = (maxNumber) => {
         return Math.floor(Math.random() * (maxNumber + 1));
@@ -62,9 +63,15 @@ const Game = () => {
     }
 
     const updateTimer = () => {
-        if(timeRemaining > 0) {
-            setTimeRemaining(timeRemaining - 1, 1); 
-        }
+            const interval = setInterval(() => {
+                    setTimeRemaining(timeRemaining => timeRemaining - 10);
+            }, 10);
+            setIntervalId(interval);            
+    }
+
+    const stopCountdown = () => {
+        clearInterval(intervalId);
+        setIntervalId(null);
     }
 
     useEffect(() => {
@@ -81,6 +88,12 @@ const Game = () => {
 
     useEffect(() => {
         updateTimer();
+    }, [])
+
+    useEffect(() => {
+        if(timeRemaining <= 0 ) {
+            stopCountdown();
+        }
     }, [timeRemaining])
     
     return (
