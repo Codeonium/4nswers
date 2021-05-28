@@ -81,17 +81,20 @@ const Game = () => {
     const nextRound = () => {
         calculateRoundScore();
         setShowScore(true);
+        setPlayerInput("");
         setTimeout(() => {
-            setShowScore(false);
-            setGameRound(gameRound + 1);
-            setTimeRemaining(5 * 1000);
-            setTimer();
+            if (gameRound < 4) {
+                setShowScore(false);
+                setGameRound(gameRound + 1);
+                setTimeRemaining(5 * 1000);
+                setTimer();
+            }
         }, 3000)
         
     }
 
     const calculateRoundScore = () => {
-        setPlayerRoundScore(10000 - Math.abs(question.answer - playerInput) * 10^(4 - roundNumber));
+        setPlayerRoundScore(( playerInput / Math.max(playerInput, 1) ) * (10000 - (Math.abs(question.answer - playerInput) * (10 ** (4 - gameRound)))));
     }
 
     useEffect(() => {
@@ -126,7 +129,7 @@ const Game = () => {
                 handleInputChange={(event) => handleInputChange(event)} 
             />
             <Timer timeRemaining={timeRemaining}/>
-            <RoundScore playerRoundScore={playerRoundScore}/>
+            <RoundScore playerRoundScore={playerRoundScore} showScore={showScore}/>
         </>
     );
 }
