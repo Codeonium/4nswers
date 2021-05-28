@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react'
 import Question from '../components/Question.js'
 import PlayerInput from '../components/PlayerInput.js'
 import Timer from '../components/Timer.js'
+import RoundScore from '../components/RoundScore.js'
 
 const Game = () => {
 
@@ -11,8 +12,11 @@ const Game = () => {
     const [placeholder, setPlaceholder] = useState("");
     const [roundNumber, setRoundNumber] = useState("one");
     const [question, setQuestion] = useState({});
-    const [timeRemaining, setTimeRemaining] = useState(8 * 1000);
+    const [timeRemaining, setTimeRemaining] = useState(5 * 1000);
     const [intervalId, setIntervalId] = useState(null);
+    const [playerRoundScore, setPlayerRoundScore] = useState(0);
+    const [playerTotalScore, setPlayerTotalScore] = useState(0);
+    const [showScore, setShowScore] = useState(false);
 
     const getRandomNumber = (maxNumber) => {
         return Math.floor(Math.random() * (maxNumber + 1));
@@ -62,7 +66,7 @@ const Game = () => {
         }
     }
 
-    const updateTimer = () => {
+    const setTimer = () => {
             const interval = setInterval(() => {
                     setTimeRemaining(timeRemaining => timeRemaining - 10);
             }, 10);
@@ -72,6 +76,22 @@ const Game = () => {
     const stopCountdown = () => {
         clearInterval(intervalId);
         setIntervalId(null);
+    }
+
+    const nextRound = () => {
+        calculateRoundScore();
+        setShowScore(true);
+        setTimeout(() => {
+            setShowScore(false);
+            setGameRound(gameRound + 1);
+            setTimeRemaining(5 * 1000);
+            setTimer();
+        }, 3000)
+        
+    }
+
+    const calculateRoundScore = () => {
+        setPlayerRoundScore(10000 - Math.abs(question.answer - playerInput) * 10^(4 - roundNumber));
     }
 
     useEffect(() => {
@@ -87,12 +107,13 @@ const Game = () => {
     }, [gameRound])
 
     useEffect(() => {
-        updateTimer();
+        setTimer();
     }, [])
 
     useEffect(() => {
         if(timeRemaining <= 0 ) {
             stopCountdown();
+            nextRound();
         }
     }, [timeRemaining])
     
@@ -105,6 +126,7 @@ const Game = () => {
                 handleInputChange={(event) => handleInputChange(event)} 
             />
             <Timer timeRemaining={timeRemaining}/>
+            <RoundScore playerRoundScore={playerRoundScore}/>
         </>
     );
 }
