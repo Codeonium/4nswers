@@ -9,6 +9,7 @@ const Game = () => {
     const [gameRound, setGameRound] = useState(4);
     const [playerInput, setPlayerInput] = useState("");
     const [placeholder, setPlaceholder] = useState("");
+    const [questionText, setQuestionText] = useState("Colours in French flag");
 
 
     const handleInputChange = (event) => {
@@ -23,7 +24,7 @@ const Game = () => {
 
     const updatePlaceholder = () => {
         for (let i = 0; i < gameRound; i++) {
-            setPlaceholder(placeholder + " * ");
+            setPlaceholder(placeholder + " *");
         }
     }
 
@@ -33,7 +34,7 @@ const Game = () => {
     
     return (
         <>
-            <Question />
+            <Question questionText={questionText}/>
             <PlayerInput 
                 playerInput={playerInput} 
                 placeholder={placeholder}
