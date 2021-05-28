@@ -11,7 +11,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route path="/select-players" component={SelectPlayers}/>
-          {/* <Route path="/play" component={Game}/> */}
+          <Route path="/play" component={Game}/>
           {/* <Route path="/scores" component={Leadership}/> */}
           {/* <Route component={Error}/> */}
         </Switch>
