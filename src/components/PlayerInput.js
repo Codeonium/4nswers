@@ -9,11 +9,9 @@ const PlayerInput = ({gameRound, playerInput, placeholder, handleInputChange}) =
     }
     
     const updateInputArray = () => {
-        for (let i = 1; 1 <= gameRound; i++) {
             setInputArray([...inputArray, 
                 <input type="text" placeholder="*" onKeyUp={handleKeyPress} value={playerInput} onChange={function() {}} />
             ])
-        }
     }
 
     useEffect(() => {
