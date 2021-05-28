@@ -135,22 +135,30 @@ const Game = () => {
     }, [playerRoundScore])
     
     return (
-        <>
-            <Question questionText={question.question}/>
-            <PlayerInput 
-                playerInput={playerInput} 
-                placeholder={placeholder}
-                handleInputChange={(event) => handleInputChange(event)} 
-            />
-            <Timer timeRemaining={timeRemaining}/>
-            <RoundScore playerRoundScore={playerRoundScore} showScore={showScore}/>
-            {endOfGame ? (
-                <Link to="/results"><button>Show Results</button></Link>
-            ) : (
-                null
-            )}
+        <Router>
+            <>
+                <Switch>
+                    <Route exact path="/game/play" component={GamePlay} />
+                    <Route path="/game/results" component={GameResults} />
+                </Switch>
+            </>
+        </Router>
+        // <>
+        //     <Question questionText={question.question}/>
+        //     <PlayerInput 
+        //         playerInput={playerInput} 
+        //         placeholder={placeholder}
+        //         handleInputChange={(event) => handleInputChange(event)} 
+        //     />
+        //     <Timer timeRemaining={timeRemaining}/>
+        //     <RoundScore playerRoundScore={playerRoundScore} showScore={showScore}/>
+        //     {endOfGame ? (
+        //         <Link to="/results"><button>Show Results</button></Link>
+        //     ) : (
+        //         null
+        //     )}
             
-        </>
+        // </>
     );
 }
 
