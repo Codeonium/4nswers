@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './components/Home.js'
+import SelectPlayers from './components/SelectPlayers.js'
 
 import './App.css';
 
@@ -9,7 +10,7 @@ function App() {
       <>
         <Switch>
           <Route exact path="/" component={Home}/>
-          {/* <Route path="/select-players" component={SelectPlayers}/> */}
+          <Route path="/select-players" component={SelectPlayers}/>
           {/* <Route path="/play" component={Game}/> */}
           {/* <Route path="/scores" component={Leadership}/> */}
           {/* <Route component={Error}/> */}

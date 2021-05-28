@@ -1,12 +1,14 @@
+import {Link} from 'react-router-dom'
+
 const SelectPlayers = () => {
     return (
         <>
             <section>
                 <h1>How many players?</h1>
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>4</button>
+                <Link to="play-game"><button>1</button></Link>
+                <Link to="play-game"><button>2</button></Link>
+                <Link to="play-game"><button>3</button></Link>
+                <Link to="play-game"><button>4</button></Link>
             </section>
         </>
     );

@@ -4,7 +4,7 @@ const Home = () => {
     return (
         <>
             <p> this is the home page. </p>
-            <Link to="/select-players">New Game!</Link>
+            <Link to="/select-players"><button>New Game!</button></Link>
         </>
     );
 }
