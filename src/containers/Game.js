@@ -150,7 +150,7 @@ const Game = () => {
                     handleShowResultsButton={() => handleShowResultsButton()}
             />
             ) : (
-                <GameResults />
+                <GameResults playerTotalScore={playerTotalScore}/>
             )}
             
         </>
