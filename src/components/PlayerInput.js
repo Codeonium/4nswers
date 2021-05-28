@@ -1,11 +1,11 @@
-const PlayerInput = ({playerInput, handleInputChange}) => {
+const PlayerInput = ({playerInput, placeholder, handleInputChange}) => {
 
     const handleKeyPress = (event) => {
         handleInputChange(event);
     }
 
     return (
-        <input type="text" placeholder="* * * *" onKeyUp={handleKeyPress} value={playerInput} />
+        <input type="text" placeholder={placeholder} onKeyUp={handleKeyPress} value={playerInput} onChange={function() {}}/>
     );
 }
 
