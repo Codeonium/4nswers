@@ -6,10 +6,25 @@ import Timer from '../components/Timer.js'
 
 const Game = () => {
 
-    const [gameRound, setGameRound] = useState(4);
+    const [gameRound, setGameRound] = useState(1);
     const [playerInput, setPlayerInput] = useState("");
     const [placeholder, setPlaceholder] = useState("");
-    const [questionText, setQuestionText] = useState("Colours in French flag");
+    const [roundNumber, setRoundNumber] = useState("one");
+    const [question, setQuestion] = useState({});
+
+    const getRandomNumber = (maxNumber) => {
+        return Math.floor(Math.random() * (maxNumber + 1));
+    }
+
+
+    const fetchQuestion = () => {
+        fetch(`https://quest-questions-answers-api.herokuapp.com/${roundNumber}digit`)
+        .then(res => res.json())
+        .then(data => {
+            const randomQuestionIndex = getRandomNumber(data.length)
+            setQuestion(data[randomQuestionIndex])
+        });
+    }
 
 
     const handleInputChange = (event) => {
@@ -28,13 +43,38 @@ const Game = () => {
         }
     }
 
+    const updateRoundNumber = () => {
+        switch(gameRound) {
+            case 1:
+                setRoundNumber("one");
+                break;
+            case 2:
+                setRoundNumber("two");
+                break;
+            case 3:
+                setRoundNumber("three");
+                break;
+            case 4:
+                setRoundNumber("four");
+                break;
+        }
+    }
+
     useEffect(() => {
         updatePlaceholder();
+    }, [gameRound])
+
+    useEffect(() => {
+        updateRoundNumber();
+    }, [gameRound])
+
+    useEffect(() => {
+        fetchQuestion();
     }, [gameRound])
     
     return (
         <>
-            <Question questionText={questionText}/>
+            <Question questionText={question.question}/>
             <PlayerInput 
                 playerInput={playerInput} 
                 placeholder={placeholder}
