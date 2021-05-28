@@ -1,10 +1,8 @@
 import {useState, useEffect} from 'react'
-import {Link} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import Question from '../components/Question.js'
-import PlayerInput from '../components/PlayerInput.js'
-import Timer from '../components/Timer.js'
-import RoundScore from '../components/RoundScore.js'
+import GamePlay from '../components/GamePlay.js'
+import GameResults from '../components/GameResults.js'
 
 const Game = () => {
 
@@ -34,7 +32,6 @@ const Game = () => {
         });
     }
 
-
     const handleInputChange = (event) => {
         const keyPressed = event.key;
         if(keyPressed === "Backspace" && playerInput.length > 0) {
@@ -53,7 +50,7 @@ const Game = () => {
 
     const updateRoundNumber = () => {
         switch(gameRound) {
-            case 1:
+            default:
                 setRoundNumber("one");
                 break;
             case 2:
@@ -135,30 +132,17 @@ const Game = () => {
     }, [playerRoundScore])
     
     return (
-        <Router>
-            <>
-                <Switch>
-                    <Route exact path="/game/play" component={GamePlay} />
-                    <Route path="/game/results" component={GameResults} />
-                </Switch>
-            </>
-        </Router>
-        // <>
-        //     <Question questionText={question.question}/>
-        //     <PlayerInput 
-        //         playerInput={playerInput} 
-        //         placeholder={placeholder}
-        //         handleInputChange={(event) => handleInputChange(event)} 
-        //     />
-        //     <Timer timeRemaining={timeRemaining}/>
-        //     <RoundScore playerRoundScore={playerRoundScore} showScore={showScore}/>
-        //     {endOfGame ? (
-        //         <Link to="/results"><button>Show Results</button></Link>
-        //     ) : (
-        //         null
-        //     )}
-            
-        // </>
+        <>
+            <GamePlay
+                question={question}
+                playerInput={playerInput}
+                handleInputChange={(event) => handleInputChange(event)}
+                timeRemaining={timeRemaining}
+                playerRoundScore={playerRoundScore}
+                showScore={showScore}
+            />
+            <GameResults path="/game/results" component={GameResults} />
+        </>
     );
 }
 
