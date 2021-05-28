@@ -5,8 +5,7 @@ const RoundScore = ({playerRoundScore, showScore}) => {
         );
     } else {
         return (
-            <>
-            </>
+            null
         )
     }
     

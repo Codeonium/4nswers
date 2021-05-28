@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import {Link} from 'react-router-dom'
 
 import Question from '../components/Question.js'
 import PlayerInput from '../components/PlayerInput.js'
@@ -17,6 +18,7 @@ const Game = () => {
     const [playerRoundScore, setPlayerRoundScore] = useState(0);
     const [playerTotalScore, setPlayerTotalScore] = useState(0);
     const [showScore, setShowScore] = useState(false);
+    const [endOfGame, setEndOfGame] = useState(false);
 
     const getRandomNumber = (maxNumber) => {
         return Math.floor(Math.random() * (maxNumber + 1));
@@ -82,6 +84,9 @@ const Game = () => {
         calculateRoundScore();
         setShowScore(true);
         setPlayerInput("");
+        if (gameRound === 4) {
+            setEndOfGame(true);
+        }
         setTimeout(() => {
             if (gameRound < 4) {
                 setShowScore(false);
@@ -89,6 +94,7 @@ const Game = () => {
                 setTimeRemaining(5 * 1000);
                 setTimer();
             }
+
         }, 3000)
         
     }
@@ -138,6 +144,12 @@ const Game = () => {
             />
             <Timer timeRemaining={timeRemaining}/>
             <RoundScore playerRoundScore={playerRoundScore} showScore={showScore}/>
+            {endOfGame ? (
+                <Link to="/results"><button>Show Results</button></Link>
+            ) : (
+                null
+            )}
+            
         </>
     );
 }
