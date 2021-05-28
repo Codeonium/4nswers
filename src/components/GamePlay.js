@@ -3,8 +3,7 @@ import PlayerInput from '../components/PlayerInput.js'
 import Timer from '../components/Timer.js'
 import RoundScore from '../components/RoundScore.js'
 
-const GamePlay = ({question, playerInput, placeholder, handleInputChange, timeRemaining, playerRoundScore, showScore}) => {
-    
+const GamePlay = ({question, playerInput, placeholder, handleInputChange, timeRemaining, playerRoundScore, showScore, endOfGame, handleShowResultsButton}) => {
     return (
         <>
             <Question questionText={question.question}/>
@@ -15,6 +14,11 @@ const GamePlay = ({question, playerInput, placeholder, handleInputChange, timeRe
             />
             <Timer timeRemaining={timeRemaining}/>
             <RoundScore playerRoundScore={playerRoundScore} showScore={showScore}/>
+            { endOfGame ? (
+                <button onClick={handleShowResultsButton}>Show results</button>
+            ) : (
+                null
+            )}
         </>
     );
 }

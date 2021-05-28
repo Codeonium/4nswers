@@ -17,6 +17,7 @@ const Game = () => {
     const [playerTotalScore, setPlayerTotalScore] = useState(0);
     const [showScore, setShowScore] = useState(false);
     const [endOfGame, setEndOfGame] = useState(false);
+    const [showResults, setShowResults] = useState(false);
 
     const getRandomNumber = (maxNumber) => {
         return Math.floor(Math.random() * (maxNumber + 1));
@@ -104,6 +105,10 @@ const Game = () => {
         setPlayerTotalScore(playerTotalScore + playerRoundScore);
     }
 
+    const handleShowResultsButton = () => {
+        setShowResults(true);
+    }
+
     useEffect(() => {
         updatePlaceholder();
     }, [gameRound])
@@ -133,15 +138,21 @@ const Game = () => {
     
     return (
         <>
-            <GamePlay
-                question={question}
-                playerInput={playerInput}
-                handleInputChange={(event) => handleInputChange(event)}
-                timeRemaining={timeRemaining}
-                playerRoundScore={playerRoundScore}
-                showScore={showScore}
+            { !showResults ? (
+                <GamePlay
+                    question={question}
+                    playerInput={playerInput}
+                    handleInputChange={(event) => handleInputChange(event)}
+                    timeRemaining={timeRemaining}
+                    playerRoundScore={playerRoundScore}
+                    showScore={showScore}
+                    endOfGame={endOfGame}
+                    handleShowResultsButton={() => handleShowResultsButton()}
             />
-            <GameResults path="/game/results" component={GameResults} />
+            ) : (
+                <GameResults />
+            )}
+            
         </>
     );
 }
