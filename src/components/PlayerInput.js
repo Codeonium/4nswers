@@ -1,6 +1,6 @@
 const PlayerInput = () => {
     return (
-        
+        <input type="number" placeholder="* * * *"/>
     );
 }
 

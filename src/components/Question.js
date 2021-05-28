@@ -1,6 +1,6 @@
-const Question = () => {
+const Question = ({questionText}) => {
     return (
-        
+        <h3>{questionText}</h3>
     );
 }
 
