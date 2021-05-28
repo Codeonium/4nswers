@@ -97,6 +97,10 @@ const Game = () => {
         setPlayerRoundScore(( playerInput / Math.max(playerInput, 1) ) * (10000 - (Math.abs(question.answer - playerInput) * (10 ** (4 - gameRound)))));
     }
 
+    const addToTotalScore = () => {
+        setPlayerTotalScore(playerTotalScore + playerRoundScore);
+    }
+
     useEffect(() => {
         updatePlaceholder();
     }, [gameRound])
@@ -119,6 +123,10 @@ const Game = () => {
             nextRound();
         }
     }, [timeRemaining])
+
+    useEffect(() => {
+        addToTotalScore();
+    }, [playerRoundScore])
     
     return (
         <>
