@@ -11,6 +11,7 @@ const Game = () => {
     const [placeholder, setPlaceholder] = useState("");
     const [roundNumber, setRoundNumber] = useState("one");
     const [question, setQuestion] = useState({});
+    const [timeRemaining, setTimeRemaining] = useState(8 * 1000);
 
     const getRandomNumber = (maxNumber) => {
         return Math.floor(Math.random() * (maxNumber + 1));
@@ -60,6 +61,12 @@ const Game = () => {
         }
     }
 
+    const updateTimer = () => {
+        if(timeRemaining > 0) {
+            setTimeRemaining(timeRemaining - 1, 1); 
+        }
+    }
+
     useEffect(() => {
         updatePlaceholder();
     }, [gameRound])
@@ -71,6 +78,10 @@ const Game = () => {
     useEffect(() => {
         fetchQuestion();
     }, [gameRound])
+
+    useEffect(() => {
+        updateTimer();
+    }, [timeRemaining])
     
     return (
         <>
@@ -80,7 +91,7 @@ const Game = () => {
                 placeholder={placeholder}
                 handleInputChange={(event) => handleInputChange(event)} 
             />
-            <Timer />
+            <Timer timeRemaining={timeRemaining}/>
         </>
     );
 }
