@@ -42,7 +42,7 @@ const Game = () => {
             setPlayerInput(playerInput + event.target.value);
             return;
         }
-        if (Event.type === "keyup" && keyPressed.match(/[0-9]/) && playerInput.length < gameRound) {
+        if (event.type === "keyup" && keyPressed.match(/[0-9]/) && playerInput.length < gameRound) {
             setPlayerInput(playerInput + keyPressed);
         }
     }
