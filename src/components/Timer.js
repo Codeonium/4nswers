@@ -1,6 +1,6 @@
 const Timer = ({timeRemaining}) => {
     return (
-        <p>{timeRemaining}</p>
+        <p>{timeRemaining/1000}s</p>
     );
 }
 

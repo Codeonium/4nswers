@@ -1,5 +1,4 @@
 import {useState, useEffect} from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import GamePlay from '../components/GamePlay.js'
 import GameResults from '../components/GameResults.js'
@@ -73,8 +72,8 @@ const Game = () => {
 
     const setTimer = () => {
             const interval = setInterval(() => {
-                    setTimeRemaining(timeRemaining => timeRemaining - 10);
-            }, 10);
+                    setTimeRemaining(timeRemaining => timeRemaining - 1000);
+            }, 1000);
             setIntervalId(interval);            
     }
 
