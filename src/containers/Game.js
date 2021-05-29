@@ -35,10 +35,15 @@ const Game = () => {
 
     const handleInputChange = (event) => {
         const keyPressed = event.key;
-        if(keyPressed === "Backspace" && playerInput.length > 0) {
+        if((event.target.value === "delete" || keyPressed === "Backspace") && playerInput.length > 0) {
             setPlayerInput(playerInput.slice(0, -1))
+            return;
         }
-        if (keyPressed.match(/[0-9]/) && playerInput.length < gameRound) {
+        if (event.type === "click" && playerInput.length < gameRound) {
+            setPlayerInput(playerInput + event.target.value);
+            return;
+        }
+        if (Event.type === "keyup" && keyPressed.match(/[0-9]/) && playerInput.length < gameRound) {
             setPlayerInput(playerInput + keyPressed);
         }
     }

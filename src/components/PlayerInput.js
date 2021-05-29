@@ -7,7 +7,7 @@ const PlayerInput = ({playerInput, placeholder, handleInputChange}) => {
     }
 
     const handleButtonPress = (event) => {
-        console.log(event.target.value);
+        handleInputChange(event);
     }
 
     return (
