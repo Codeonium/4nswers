@@ -82,7 +82,7 @@ const Game = () => {
     }
 
     useEffect(() => {
-        const socket = io("http://localhost:3001")
+        const socket = io("http://localhost:3001");
         socket.emit('tasty message', 'this is a tasty message');
 
         socket.on('message', (msg) => {
