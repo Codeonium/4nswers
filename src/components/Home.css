@@ -1,6 +1,6 @@
 body {
     font-size: 5vh;
-    color: rgb(52, 57, 45);
+    color: rgb(255, 0, 153);
     height: 50vh;
 }
 
@@ -10,15 +10,17 @@ body {
     border: 3px;
     border: 10px solid transparent;
     border-radius: 50%;
-    background-color: rgb(214, 156, 50);
+    /* background-color: rgb(214, 156, 50); */
     height: 35vh;
     width: 35vh;
-    color: red;
+    border: 3px solid rgb(255, 0, 153);
+    color: rgb(242, 255, 0);
+    /* color: rgb(255, 0, 153); */
     font-size: 3rem;
     margin: 5px;
     }
 
-div {
+.game-play {
     display: flex;
     flex-direction: column;
     justify-content: space-around;

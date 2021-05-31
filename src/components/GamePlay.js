@@ -5,7 +5,7 @@ import RoundScore from '../components/RoundScore.js'
 
 const GamePlay = ({gameRound, question, playerInput, placeholder, handleInputChange, timeRemaining, playerRoundScore, showScore, endOfGame, handleShowResultsButton}) => {
     return (
-        <div>
+        <div id="game-play">
             <Question questionText={question.question}/>
             <PlayerInput 
                 gameRound={gameRound}

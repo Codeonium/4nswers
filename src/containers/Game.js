@@ -18,7 +18,7 @@ const Game = () => {
     const [showResults, setShowResults] = useState(false);
 
     const getRandomNumber = (maxNumber) => {
-        return Math.min(Math.floor(Math.random() * (maxNumber + 1)), 17);
+        return Math.min(Math.floor(Math.random() * (maxNumber + 1)), 16);
     }
 
 
