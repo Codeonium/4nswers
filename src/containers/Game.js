@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import io from 'socket.io/client-dist/socket.io'
 
 import GamePlay from '../components/GamePlay.js'
 import GameResults from '../components/GameResults.js'
@@ -19,6 +20,24 @@ const Game = () => {
 
     const getRandomNumber = (maxNumber) => {
         return Math.min(Math.floor(Math.random() * (maxNumber + 1)), 16);
+    }
+
+    const socket = io("http://localhost:3001/", {
+        withCredentials: true,
+        transportOptions: {
+            polling: {
+                extraHeaders: {
+                    "my-custom-header": "abcd"
+                }
+            }
+        }
+    })
+
+    const openConnection = () => {
+        socket.onopen = (event) => {
+            console.log("Connection established")
+            socket.send("Message being sent");
+        }
     }
 
 
@@ -96,6 +115,10 @@ const Game = () => {
     const handleShowResultsButton = () => {
         setShowResults(true);
     }
+
+    useEffect(() => {
+        openConnection();
+    }, [])
 
     useEffect(() => {
         updatePlaceholder();
