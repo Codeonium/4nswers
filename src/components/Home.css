@@ -1,0 +1,27 @@
+body {
+    font-size: 5vh;
+    color: rgb(52, 57, 45);
+    height: 50vh;
+}
+
+.home-button {
+    cursor: pointer;
+    padding: 10px;
+    border: 3px;
+    border: 10px solid transparent;
+    border-radius: 50%;
+    background-color: rgb(214, 156, 50);
+    height: 35vh;
+    width: 35vh;
+    color: red;
+    font-size: 3rem;
+    margin: 5px;
+    }
+
+div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+    
+    

@@ -1,6 +1,8 @@
+import './Timer.css'
+
 const Timer = ({timeRemaining}) => {
     return (
-        <p>{timeRemaining/1000}s</p>
+        <p class="timer">{timeRemaining/1000}s</p>
     );
 }
 

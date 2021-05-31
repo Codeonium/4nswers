@@ -1,10 +1,12 @@
 import {Link} from 'react-router-dom'
 
+import "./Home.css";
+
 const Home = () => {
     return (
         <>
-            <p> this is the home page. </p>
-            <Link to="/select-players"><button>New Game!</button></Link>
+            <h1> 4NSWERS </h1>
+            <Link to="/select-players"><button class="home-button">New Game!</button></Link>
         </>
     );
 }

@@ -18,7 +18,7 @@ const Game = () => {
     const [showResults, setShowResults] = useState(false);
 
     const getRandomNumber = (maxNumber) => {
-        return Math.min(Math.floor(Math.random() * (maxNumber + 1)), 6);
+        return Math.min(Math.floor(Math.random() * (maxNumber + 1)), 17);
     }
 
 
@@ -48,7 +48,7 @@ const Game = () => {
 
     const updatePlaceholder = () => {
         for (let i = 0; i < gameRound; i++) {
-            setPlaceholder(placeholder + " *");
+            setPlaceholder(placeholder + " _ ");
         }
     }
 
@@ -68,9 +68,9 @@ const Game = () => {
     const nextRound = () => {
         calculateRoundScore();
         setShowScore(true);
-        setPlayerInput("");
         if (gameRound === 4) {
             setEndOfGame(true);
+            setShowResults(true);
         }
         setTimeout(() => {
             if (gameRound < 4) {
@@ -78,6 +78,7 @@ const Game = () => {
                 setGameRound(gameRound + 1);
                 setTimeRemaining(5 * 1000);
                 setTimer();
+                setPlayerInput("");
             }
 
         }, 3000)
@@ -117,7 +118,7 @@ const Game = () => {
 
     useEffect(() => {
         addToTotalScore();
-    }, [playerRoundScore])
+    }, [gameRound, endOfGame])
     
     return (
         <>

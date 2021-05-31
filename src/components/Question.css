@@ -1,0 +1,14 @@
+.question {
+    width: 80%;
+    height: 30vh;
+    font-size: 5vh;
+    /* border: 1px solid black; */
+    margin: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.question-box {
+    align-items: center;
+    justify-content: center;
+}

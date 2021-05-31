@@ -1,0 +1,13 @@
+.player-button {
+    cursor: pointer;
+    padding: 10px;
+    border: 3px;
+    border: 10px solid black;
+    border-radius: 50%;
+    background-color: rgb(214, 156, 50);
+    height: 20vh;
+    width: 20vh;
+    color: red;
+    font-size: 3rem;
+    margin: 5px;
+    }

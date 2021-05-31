@@ -1,3 +1,5 @@
+import './PlayerInput.css';
+
 import Keypad from './Keypad.js'
 
 const PlayerInput = ({playerInput, placeholder, handleInputChange}) => {
