@@ -30,6 +30,11 @@
     color: rgb(242, 255, 0);
 }
 
+.results-header {
+    font-size: 20px;
+}
+
 .results {
     color: rgb(242, 255, 0);
+    font-weight: bolder;
 }

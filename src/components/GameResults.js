@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 const GameResults = ({playerTotalScore}) => {
     return (
         <>
-            <h4>Game Results</h4>
+            <p class="results-header">Game Results</p>
             <p class="results">{playerTotalScore} points</p>
             <Link to="/"><button>Home</button></Link>
         </>
