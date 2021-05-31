@@ -8,7 +8,6 @@ const Game = () => {
     const [gameRound, setGameRound] = useState(1);
     const [playerInput, setPlayerInput] = useState("");
     const [placeholder, setPlaceholder] = useState("");
-    const [roundNumber, setRoundNumber] = useState("one");
     const [question, setQuestion] = useState({});
     const [timeRemaining, setTimeRemaining] = useState(5 * 1000);
     const [intervalId, setIntervalId] = useState(null);
@@ -19,12 +18,12 @@ const Game = () => {
     const [showResults, setShowResults] = useState(false);
 
     const getRandomNumber = (maxNumber) => {
-        return Math.floor(Math.random() * (maxNumber + 1));
+        return Math.min(Math.floor(Math.random() * (maxNumber + 1)), 6);
     }
 
 
     const fetchQuestion = () => {
-        fetch(`https://quest-questions-answers-api.herokuapp.com/${roundNumber}digit`)
+        fetch(`https://quest-questions-answers-api.herokuapp.com/${gameRound}`)
         .then(res => res.json())
         .then(data => {
             const randomQuestionIndex = getRandomNumber(data.length)
@@ -53,22 +52,6 @@ const Game = () => {
         }
     }
 
-    const updateRoundNumber = () => {
-        switch(gameRound) {
-            default:
-                setRoundNumber("one");
-                break;
-            case 2:
-                setRoundNumber("two");
-                break;
-            case 3:
-                setRoundNumber("three");
-                break;
-            case 4:
-                setRoundNumber("four");
-                break;
-        }
-    }
 
     const setTimer = () => {
             const interval = setInterval(() => {
@@ -115,10 +98,6 @@ const Game = () => {
 
     useEffect(() => {
         updatePlaceholder();
-    }, [gameRound])
-
-    useEffect(() => {
-        updateRoundNumber();
     }, [gameRound])
 
     useEffect(() => {
