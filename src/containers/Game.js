@@ -42,7 +42,7 @@ const Game = () => {
 
     const startTimer = () => {
             const interval = setInterval(() => {
-                    setTimeRemaining(timeRemaining - 1000);
+                    setTimeRemaining(timeRemaining => timeRemaining - 1000);
                     if (timeRemaining <= 0) {
                         stopTimer();
                         socket.emit('playerInput', playerInput);
