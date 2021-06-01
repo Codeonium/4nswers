@@ -67,9 +67,9 @@ const Game = () => {
     //     setPlayerRoundScore(( playerInput / Math.max(playerInput, 1) ) * (10000 - (Math.abs(question.answer - playerInput) * (10 ** (4 - gameRound)))));
     // }
 
-    // const addToTotalScore = () => {
-    //     setPlayerTotalScore(playerTotalScore + playerRoundScore);
-    // }
+    const addToTotalScore = () => {
+        setPlayerTotalScore(playerTotalScore + playerRoundScore);
+    }
 
     const handleShowResultsButton = () => {
         setShowResults(true);
@@ -97,6 +97,7 @@ const Game = () => {
 
         socket.on('roundScore', (data) => {
             setPlayerRoundScore(data);
+            addToTotalScore();
         })
 
         socket.on('placeholder', (data) => {
