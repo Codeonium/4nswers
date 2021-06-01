@@ -11,7 +11,7 @@ const Game = () => {
     const [placeholder, setPlaceholder] = useState(" _ ");
     const [question, setQuestion] = useState({});
     const [timeRemaining, setTimeRemaining] = useState(5 * 1000);
-    // const [intervalId, setIntervalId] = useState(null);
+    const [intervalId, setIntervalId] = useState(null);
     const [playerRoundScore, setPlayerRoundScore] = useState(0);
     const [playerTotalScore, setPlayerTotalScore] = useState(0);
     const [showScore, setShowScore] = useState(false);
@@ -27,7 +27,7 @@ const Game = () => {
         
         const keyPressed = event.key;
         if((event.target.value === "delete" || keyPressed === "Backspace") && playerInput.length > 0) {
-            setPlayerInput(playerInput.slice(0, -1))
+            setPlayerInput(playerInput.slice(0, -1));
             return;
         }
         if (event.type === "click" && playerInput.length < gameRound) {
@@ -37,20 +37,24 @@ const Game = () => {
         if (event.type === "keyup" && keyPressed.match(/[0-9]/) && playerInput.length < gameRound) {
             setPlayerInput(playerInput + keyPressed);
         }
-        socket.emit('playerInput', playerInput);
     }
 
-    // const setTimer = (time) => {
-    //         const interval = setInterval(() => {
-    //                 setTimeRemaining(time);
-    //         }, 1000);
-    //         setIntervalId(interval);            
-    // }
 
-    // const stopCountdown = () => {
-    //     clearInterval(intervalId);
-    //     setIntervalId(null);
-    // }
+    const startTimer = () => {
+            const interval = setInterval(() => {
+                    setTimeRemaining(timeRemaining - 1000);
+                    if (timeRemaining <= 0) {
+                        stopTimer();
+                        socket.emit('playerInput', playerInput);
+                    }
+            }, 1000);
+            setIntervalId(interval);            
+    }
+
+    const stopTimer = () => {
+        clearInterval(intervalId);
+        setIntervalId(null);
+    }
 
     const nextRound = () => {
         setShowScore(true);
@@ -75,6 +79,7 @@ const Game = () => {
     }
 
     useEffect(() => {
+        socket.emit('start game');
     
         socket.on('message', (msg) => {
             console.log(msg);
@@ -86,6 +91,7 @@ const Game = () => {
 
         socket.on('question', (data) => {
             setQuestion(data);
+            startTimer();
         })
 
         socket.on('roundScore', (data) => {
@@ -102,9 +108,6 @@ const Game = () => {
         
         socket.on('totalScore', (data) => {
             setPlayerTotalScore(data);
-        })
-
-        socket.on('endOfGame', () => {
             setEndOfGame(true);
             setShowResults(true);
         })

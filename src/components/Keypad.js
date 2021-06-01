@@ -21,7 +21,7 @@ const Keypad = ({handleButtonPress}) => {
             </section>
             <section>
                 <button onClick={(event) => handleButtonPress(event, 'value')} value="0">0</button>
-                <button onClick={(event) => handleButtonPress(event, 'value')} value="delete" className="delete"><img src="https://cdn3.iconfinder.com/data/icons/social-productivity-line-art-3/128/delete-512.png" alt="delete" /></button>
+                <button onClick={(event) => handleButtonPress(event, 'value')} value="delete" className="delete"><img src="" alt="" />Delete</button>
             </section>
         </div>
     );
