@@ -43,10 +43,6 @@ const Game = () => {
     const startTimer = () => {
             const interval = setInterval(() => {
                     setTimeRemaining(timeRemaining => timeRemaining - 1000);
-                    if (timeRemaining <= 0) {
-                        stopTimer();
-                        socket.emit('playerInput', playerInput);
-                    }
             }, 1000);
             setIntervalId(interval);            
     }
@@ -114,11 +110,12 @@ const Game = () => {
 
     }, [socket])
 
-    // useEffect(() => {
-    //     for (let i = 0; i < gameRound; i++) {
-    //         setPlaceholder(placeholder + " _ ");
-    //     }
-    // }, [gameRound])
+    useEffect(() => {
+        if (timeRemaining <= 0) {
+            stopTimer();
+            socket.emit('playerInput', playerInput);
+        }
+    }, [timeRemaining])
 
     // useEffect(() => {
     //     fetch(`https://quest-questions-answers-api.herokuapp.com/${gameRound}`)
