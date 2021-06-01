@@ -54,10 +54,10 @@ const Game = () => {
     }
 
     const nextRound = () => {
-        setShowScore(true);
         setTimeout(() => {
-                setShowScore(false);
                 setPlayerInput("");
+                setShowScore(false);
+                setTimeRemaining(5000);
                 socket.emit('nextRound', true);
         }, 3000)
         
@@ -98,6 +98,8 @@ const Game = () => {
         socket.on('roundScore', (data) => {
             setPlayerRoundScore(data);
             addToTotalScore();
+            setShowScore(true);
+            nextRound();
         })
 
         socket.on('placeholder', (data) => {
