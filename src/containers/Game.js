@@ -11,16 +11,16 @@ const Game = () => {
     const [placeholder, setPlaceholder] = useState("");
     const [question, setQuestion] = useState({});
     const [timeRemaining, setTimeRemaining] = useState(5 * 1000);
-    const [intervalId, setIntervalId] = useState(null);
+    // const [intervalId, setIntervalId] = useState(null);
     const [playerRoundScore, setPlayerRoundScore] = useState(0);
     const [playerTotalScore, setPlayerTotalScore] = useState(0);
     const [showScore, setShowScore] = useState(false);
     const [endOfGame, setEndOfGame] = useState(false);
     const [showResults, setShowResults] = useState(false);
 
-    const getRandomNumber = (maxNumber) => {
-        return Math.floor(Math.random() * (maxNumber + 1));
-    }
+    // const getRandomNumber = (maxNumber) => {
+    //     return Math.floor(Math.random() * (maxNumber + 1));
+    // }
 
     const handleInputChange = (event) => {
         const keyPressed = event.key;
@@ -37,45 +37,45 @@ const Game = () => {
         }
     }
 
-    const setTimer = () => {
-            const interval = setInterval(() => {
-                    setTimeRemaining(timeRemaining => timeRemaining - 1000);
-            }, 1000);
-            setIntervalId(interval);            
-    }
+    // const setTimer = (time) => {
+    //         const interval = setInterval(() => {
+    //                 setTimeRemaining(time);
+    //         }, 1000);
+    //         setIntervalId(interval);            
+    // }
 
-    const stopCountdown = () => {
-        clearInterval(intervalId);
-        setIntervalId(null);
-    }
+    // const stopCountdown = () => {
+    //     clearInterval(intervalId);
+    //     setIntervalId(null);
+    // }
 
-    const nextRound = () => {
-        calculateRoundScore();
-        setShowScore(true);
-        if (gameRound === 4) {
-            setEndOfGame(true);
-            setShowResults(true);
-        }
-        setTimeout(() => {
-            if (gameRound < 4) {
-                setShowScore(false);
-                setGameRound(gameRound + 1);
-                setTimeRemaining(5 * 1000);
-                setTimer();
-                setPlayerInput("");
-            }
+    // const nextRound = () => {
+    //     calculateRoundScore();
+    //     setShowScore(true);
+    //     if (gameRound === 4) {
+    //         setEndOfGame(true);
+    //         setShowResults(true);
+    //     }
+    //     setTimeout(() => {
+    //         if (gameRound < 4) {
+    //             setShowScore(false);
+    //             setGameRound(gameRound + 1);
+    //             setTimeRemaining(5 * 1000);
+    //             setTimer();
+    //             setPlayerInput("");
+    //         }
 
-        }, 3000)
+    //     }, 3000)
         
-    }
+    // }
 
-    const calculateRoundScore = () => {
-        setPlayerRoundScore(( playerInput / Math.max(playerInput, 1) ) * (10000 - (Math.abs(question.answer - playerInput) * (10 ** (4 - gameRound)))));
-    }
+    // const calculateRoundScore = () => {
+    //     setPlayerRoundScore(( playerInput / Math.max(playerInput, 1) ) * (10000 - (Math.abs(question.answer - playerInput) * (10 ** (4 - gameRound)))));
+    // }
 
-    const addToTotalScore = () => {
-        setPlayerTotalScore(playerTotalScore + playerRoundScore);
-    }
+    // const addToTotalScore = () => {
+    //     setPlayerTotalScore(playerTotalScore + playerRoundScore);
+    // }
 
     const handleShowResultsButton = () => {
         setShowResults(true);
@@ -88,6 +88,10 @@ const Game = () => {
         socket.on('message', (msg) => {
             console.log(msg);
         })
+
+        socket.on('timer update', (data) => {
+            setTimeRemaining(data);
+        })
     }, [])
 
     useEffect(() => {
@@ -96,29 +100,29 @@ const Game = () => {
         }
     }, [gameRound])
 
-    useEffect(() => {
-        fetch(`https://quest-questions-answers-api.herokuapp.com/${gameRound}`)
-        .then(res => res.json())
-        .then(data => {
-            const randomQuestionIndex = getRandomNumber(data.length-1)
-            setQuestion(data[randomQuestionIndex])
-        });
-    }, [gameRound])
+    // useEffect(() => {
+    //     fetch(`https://quest-questions-answers-api.herokuapp.com/${gameRound}`)
+    //     .then(res => res.json())
+    //     .then(data => {
+    //         const randomQuestionIndex = getRandomNumber(data.length-1)
+    //         setQuestion(data[randomQuestionIndex])
+    //     });
+    // }, [gameRound])
 
-    useEffect(() => {
-        setTimer();
-    }, [])
+    // useEffect(() => {
+    //     setTimer();
+    // }, [])
 
-    useEffect(() => {
-        if(timeRemaining <= 0 ) {
-            stopCountdown();
-            nextRound();
-        }
-    }, [timeRemaining])
+    // useEffect(() => {
+    //     if(timeRemaining <= 0 ) {
+    //         // stopCountdown();
+    //         // nextRound();
+    //     }
+    // }, [timeRemaining])
 
-    useEffect(() => {
-        addToTotalScore();
-    }, [gameRound, endOfGame])
+    // useEffect(() => {
+    //     addToTotalScore();
+    // }, [gameRound, endOfGame])
     
     return (
         <>
