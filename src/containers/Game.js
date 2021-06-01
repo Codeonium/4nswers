@@ -100,7 +100,7 @@ const Game = () => {
         fetch(`https://quest-questions-answers-api.herokuapp.com/${gameRound}`)
         .then(res => res.json())
         .then(data => {
-            const randomQuestionIndex = getRandomNumber(data.length)
+            const randomQuestionIndex = getRandomNumber(data.length-1)
             setQuestion(data[randomQuestionIndex])
         });
     }, [gameRound])
