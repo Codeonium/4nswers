@@ -6,6 +6,7 @@ import GameResults from '../components/GameResults.js'
 
 const Game = () => {
 
+    const [connectionId, setConnectionId] = useState("");
     const [gameRound, setGameRound] = useState(1);
     const [playerInput, setPlayerInput] = useState("");
     const [placeholder, setPlaceholder] = useState(" _ ");
@@ -76,14 +77,18 @@ const Game = () => {
 
     useEffect(() => {
         socket.emit('start game');
+
+        socket.on('idReturned', (data) => {
+            setConnectionId(data);
+        })
     
         socket.on('message', (msg) => {
             console.log(msg);
         })
 
-        socket.on('timer update', (data) => {
-            setTimeRemaining(data);
-        })
+        // socket.on('timer update', (data) => {
+        //     setTimeRemaining(data);
+        // })
 
         socket.on('question', (data) => {
             setQuestion(data);
@@ -111,9 +116,9 @@ const Game = () => {
     }, [socket])
 
     useEffect(() => {
-        if (timeRemaining <= 0) {
+        if (timeRemaining <=  0) {
             stopTimer();
-            socket.emit('playerInput', playerInput);
+            socket.emit('playerInput', {input: playerInput, userId: connectionId});
         }
     }, [timeRemaining])
 
