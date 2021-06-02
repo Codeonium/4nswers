@@ -1,10 +1,10 @@
 import {Link} from 'react-router-dom';
 
-const GameResults = ({playerTotalScore}) => {
+const GameResults = ({playerScores}) => {
     return (
         <>
             <p className="results-header">Game Results</p>
-            <p className="results">{playerTotalScore} points</p>
+            <p className="results">{playerScores[0].score} points</p>
             <Link to="/"><button>Home</button></Link>
         </>
     );

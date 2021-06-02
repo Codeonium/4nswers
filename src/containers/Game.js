@@ -13,13 +13,14 @@ const Game = () => {
     const [playerInput, setPlayerInput] = useState("");
     const [placeholder, setPlaceholder] = useState("");
     const [question, setQuestion] = useState({});
-    const [timeRemaining, setTimeRemaining] = useState(5 * 1000);
+    const [timeRemaining, setTimeRemaining] = useState(8 * 1000);
     const [intervalId, setIntervalId] = useState(null);
     const [playerRoundScore, setPlayerRoundScore] = useState(0);
     const [playerTotalScore, setPlayerTotalScore] = useState(0);
     const [showScore, setShowScore] = useState(false);
     const [endOfGame, setEndOfGame] = useState(false);
     const [showResults, setShowResults] = useState(false);
+    const [playerScores, setPlayerScores] = useState([]);
 
     // const getRandomNumber = (maxNumber) => {
     //     return Math.floor(Math.random() * (maxNumber + 1));
@@ -111,9 +112,14 @@ const Game = () => {
         //     setGameRound(data);
         // })
         
-        socket.on('endOfGame', () => {
+        socket.on('endOfGame', (data) => {
+            // console.log(data);
+            setPlayerScores(data);
+            // console.log(playerScores);
             setEndOfGame(true);
             setShowResults(true);
+            socket.disconnect();
+            socket.connect();
         })
 
     }, [])
@@ -161,7 +167,7 @@ const Game = () => {
                     handleShowResultsButton={() => handleShowResultsButton()}
             />
             ) : (
-                <GameResults playerTotalScore={playerTotalScore}/>
+                <GameResults playerScores={playerScores}/>
             )}
             
         </>
