@@ -101,7 +101,7 @@ const Game = () => {
             nextRound();
             setTimeout(() => {
                 setShowScore(false);
-            }, 6000)
+            }, 2000)
         })
 
         socket.on('placeholder', (data) => {
@@ -147,9 +147,11 @@ const Game = () => {
 
 
 
-    // useEffect(() => {
-    //     addToTotalScore();
-    // }, [gameRound, endOfGame])
+    useEffect(() => {
+        for (let i = 1; i <= gameRound; i++) {
+            setPlaceholder( placeholder + " - ");
+        }
+    }, [gameRound])
     
     return (
         <>

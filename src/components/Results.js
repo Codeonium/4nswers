@@ -2,7 +2,7 @@ import './Results.css'
 
 const Results = ({playerTotalScore}) => {
     return (
-        <h3>{playerTotalScore}</h3>
+        <h3 className="leader">{playerTotalScore}</h3>
     );
 }
 

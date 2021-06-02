@@ -1,5 +1,5 @@
 button { 
-padding: 9px;
+padding: 1vh 7vw;
 margin: 9px;
 border: none;
 background: none;
@@ -7,9 +7,24 @@ font-size: 6vh;
 font-weight: bolder;
 cursor: pointer;
 color: rgb(255, 0, 153);
+font-family: 'ZCOOL KuaiLe', cursive;
+animation: wiggle 2s infinite;
 }
 
+@keyframes wiggle {
+    0% {
+      transform: rotate(6deg) scale(0.98);
+    }
+    50% {
+      transform: rotate(-6deg) scale(1.02);
+    }
+    100% {
+      transform: rotate(6deg) scale(0.98);
+    }
+  }
 
-.delete img {
-    width: 5vh;
+
+.outOfHere {
+    color: transparent !important;
+    cursor: default !important;
 }

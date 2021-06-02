@@ -11,10 +11,10 @@
 
 .score {
     position:fixed;
-    top: 15vh;
+    top: 30vh;
     width: 100%;
-    backdrop-filter: blur(4px);
-    color: rgb(242, 255, 0);
+    /* backdrop-filter: blur(4px); */
+    color: rgb(242, 255, 0) !important;
 
 }
 
@@ -31,6 +31,7 @@
 }
 
 .results-header {
+    margin: 5vh 0;
     font-size: 20px;
 }
 
