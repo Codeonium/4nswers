@@ -22,10 +22,6 @@ const Game = () => {
     const [showResults, setShowResults] = useState(false);
     const [playerScores, setPlayerScores] = useState([]);
 
-    // const getRandomNumber = (maxNumber) => {
-    //     return Math.floor(Math.random() * (maxNumber + 1));
-    // }
-
     const handleInputChange = (event) => {
         
         const keyPressed = event.key;
@@ -60,10 +56,6 @@ const Game = () => {
         setTimeRemaining(8000);
     }
 
-    // const calculateRoundScore = () => {
-    //     setPlayerRoundScore(( playerInput / Math.max(playerInput, 1) ) * (10000 - (Math.abs(question.answer - playerInput) * (10 ** (4 - gameRound)))));
-    // }
-
     const addToTotalScore = () => {
         setPlayerTotalScore(playerTotalScore + playerRoundScore);
     }
@@ -83,10 +75,6 @@ const Game = () => {
         socket.on('message', (msg) => {
             console.log(msg);
         })
-
-        // socket.on('timer update', (data) => {
-        //     setTimeRemaining(data);
-        // })
 
         socket.on('question', (data) => {
             setQuestion(data);
@@ -108,14 +96,8 @@ const Game = () => {
             setPlaceholder(data);
         })
 
-        // socket.on('gameRound', (data) => {
-        //     setGameRound(data);
-        // })
-        
         socket.on('endOfGame', (data) => {
-            // console.log(data);
             setPlayerScores(data);
-            // console.log(playerScores);
             setEndOfGame(true);
             setShowResults(true);
             socket.disconnect();
@@ -131,21 +113,6 @@ const Game = () => {
             socket.emit('playerInput', {input: playerInput, userId: connectionId});
         }
     }, [timeRemaining])
-
-    // useEffect(() => {
-    //     fetch(`https://quest-questions-answers-api.herokuapp.com/${gameRound}`)
-    //     .then(res => res.json())
-    //     .then(data => {
-    //         const randomQuestionIndex = getRandomNumber(data.length-1)
-    //         setQuestion(data[randomQuestionIndex])
-    //     });
-    // }, [gameRound])
-
-    // useEffect(() => {
-    //     setTimer();
-    // }, [])
-
-
 
     useEffect(() => {
         for (let i = 1; i <= gameRound; i++) {
