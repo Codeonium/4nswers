@@ -4,6 +4,8 @@ import io from 'socket.io/client-dist/socket.io';
 import GamePlay from '../components/GamePlay.js'
 import GameResults from '../components/GameResults.js'
 
+const socket = io("http://localhost:3001");
+
 const Game = () => {
 
     const [connectionId, setConnectionId] = useState("");
@@ -18,7 +20,6 @@ const Game = () => {
     const [showScore, setShowScore] = useState(false);
     const [endOfGame, setEndOfGame] = useState(false);
     const [showResults, setShowResults] = useState(false);
-    const [socket, setSocket] = useState(io("http://localhost:3001"));
 
     // const getRandomNumber = (maxNumber) => {
     //     return Math.floor(Math.random() * (maxNumber + 1));
@@ -54,13 +55,8 @@ const Game = () => {
     }
 
     const nextRound = () => {
-        setTimeout(() => {
-                setPlayerInput("");
-                setShowScore(false);
-                setTimeRemaining(5000);
-                socket.emit('nextRound', true);
-        }, 3000)
-        
+        setPlayerInput("");
+        setTimeRemaining(8000);
     }
 
     // const calculateRoundScore = () => {
@@ -80,6 +76,7 @@ const Game = () => {
 
         socket.on('idReturned', (data) => {
             setConnectionId(data);
+            console.log('id returned', data);
         })
     
         socket.on('message', (msg) => {
@@ -92,6 +89,7 @@ const Game = () => {
 
         socket.on('question', (data) => {
             setQuestion(data);
+            setGameRound(data.roundNumber);
             startTimer();
         })
 
@@ -100,15 +98,18 @@ const Game = () => {
             addToTotalScore();
             setShowScore(true);
             nextRound();
+            setTimeout(() => {
+                setShowScore(false);
+            }, 6000)
         })
 
         socket.on('placeholder', (data) => {
             setPlaceholder(data);
         })
 
-        socket.on('gameRound', (data) => {
-            setGameRound(data);
-        })
+        // socket.on('gameRound', (data) => {
+        //     setGameRound(data);
+        // })
         
         socket.on('totalScore', (data) => {
             setPlayerTotalScore(data);
@@ -116,11 +117,12 @@ const Game = () => {
             setShowResults(true);
         })
 
-    }, [socket])
+    }, [])
 
     useEffect(() => {
         if (timeRemaining <=  0) {
             stopTimer();
+            setTimeRemaining(0);
             socket.emit('playerInput', {input: playerInput, userId: connectionId});
         }
     }, [timeRemaining])
@@ -138,9 +140,7 @@ const Game = () => {
     //     setTimer();
     // }, [])
 
-    useEffect(() => {
-            nextRound();
-        }, [playerRoundScore])
+
 
     // useEffect(() => {
     //     addToTotalScore();
