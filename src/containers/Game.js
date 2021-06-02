@@ -11,7 +11,7 @@ const Game = () => {
     const [connectionId, setConnectionId] = useState("");
     const [gameRound, setGameRound] = useState(1);
     const [playerInput, setPlayerInput] = useState("");
-    const [placeholder, setPlaceholder] = useState(" _ ");
+    const [placeholder, setPlaceholder] = useState("");
     const [question, setQuestion] = useState({});
     const [timeRemaining, setTimeRemaining] = useState(5 * 1000);
     const [intervalId, setIntervalId] = useState(null);
@@ -111,8 +111,7 @@ const Game = () => {
         //     setGameRound(data);
         // })
         
-        socket.on('totalScore', (data) => {
-            setPlayerTotalScore(data);
+        socket.on('endOfGame', () => {
             setEndOfGame(true);
             setShowResults(true);
         })
