@@ -5,7 +5,8 @@
     /* border: 1px solid black; */
     margin: auto;
     padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 2vh;
+    font-family: 'Permanent Marker', cursive;
 }
 
 .question-box {
