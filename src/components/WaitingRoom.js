@@ -40,7 +40,7 @@ const WaitingRoom = () => {
             setNumberReady(data);
         })
 
-        socket.on('AllReady', () => {
+        socket.on('allReady', () => {
             console.log("all ready");
             setEveryoneReady(true);
         })

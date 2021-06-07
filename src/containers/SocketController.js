@@ -20,11 +20,6 @@ const emitData = (type, data) => {
 //     WaitingRoom.increaseNumberReady();
 // })
 
-socket.on('AllReady', () => {
-    console.log("all ready");
-    WaitingRoom.setEveryoneReady(true);
-})
-
 export {
     socket,
     openConnection,

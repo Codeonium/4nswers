@@ -3,7 +3,9 @@ import {useState, useEffect} from 'react'
 import GamePlay from '../components/GamePlay.js'
 import GameResults from '../components/GameResults.js'
 
-const Game = (socket, connectionId) => {
+import {openConnection, emitData} from '../containers/SocketController.js';
+
+const Game = (connectionId) => {
 
     const [gameRound, setGameRound] = useState(1);
     const [playerInput, setPlayerInput] = useState("");
@@ -17,6 +19,8 @@ const Game = (socket, connectionId) => {
     const [endOfGame, setEndOfGame] = useState(false);
     const [showResults, setShowResults] = useState(false);
     const [playerScores, setPlayerScores] = useState([]);
+
+    const socket = openConnection();
 
     const handleInputChange = (event) => {
         
@@ -61,7 +65,7 @@ const Game = (socket, connectionId) => {
     }
 
     useEffect(() => {
-        socket.emit('start game');
+        emitData('start game', null);
 
         socket.on('question', (data) => {
             setQuestion(data);
@@ -97,7 +101,7 @@ const Game = (socket, connectionId) => {
         if (timeRemaining <=  0) {
             stopTimer();
             setTimeRemaining(0);
-            socket.emit('playerInput', {input: playerInput, userId: connectionId});
+            emitData('playerInput', {input: playerInput, userId: connectionId});
         }
     }, [timeRemaining])
 
