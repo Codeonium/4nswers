@@ -1,13 +1,16 @@
 import io from 'socket.io/client-dist/socket.io';
 import {useState, useEffect} from 'react';
-
 import { Redirect } from 'react-router';
 
-const socket = io("http://localhost:3001");
+import {openConnection, emitData} from '../containers/SocketController.js';
+
+// const socket = io("http://localhost:3001");
+const socket = openConnection();
 
 const WaitingRoom = () => {
 
     const [playerName, setPlayerName] = useState("");
+    const [playerCreated, setPlayerCreated] = useState(false);
     const [playerReady, setPlayerReady] = useState(false);
     const [numberReady, setNumberReady] = useState(0);
     const [everyoneReady, setEveryoneReady] = useState(false);
@@ -18,16 +21,23 @@ const WaitingRoom = () => {
     }
 
     const handleReadyClick = () => {
+        if (!playerCreated) {
+            setPlayerCreated(true);
+        }
+        emitData('playerReady', {playerName: playerName, playerCreated: playerCreated, playerReady: playerReady});
         setPlayerReady(!playerReady);
     }
 
     useEffect(() => {
-        socket.emit('playerReady', playerName);
 
         socket.on('idReturned', (data) => {
             setConnectionId(data);
             console.log('id returned', data);
             setNumberReady(numberReady + 1);
+        })
+
+        socket.on('playersReady', (data) => {
+            setNumberReady(data);
         })
 
         socket.on('AllReady', () => {
