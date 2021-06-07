@@ -9,6 +9,7 @@ body {
 .title {
     animation: pulse 7s infinite;
     font-family: 'ZCOOL KuaiLe', cursive;
+    text-shadow: 0 0 20px rgb(231, 41, 136, 0.8)
 }
 
 .home-button {
@@ -30,6 +31,8 @@ body {
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    box-shadow: 0 0 20px rgb(242, 255, 0, 0.8);
+
     }
 
     @media (prefers-reduced-motion: no-preference) {
