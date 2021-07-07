@@ -20,7 +20,11 @@ const Keypad = ({handleButtonPress}) => {
                 <button onClick={(event) => handleButtonPress(event, 'value')} value="9">9</button>
             </section>
             <section>
+<<<<<<< HEAD
                 <button className="outOfHere">_</button>
+=======
+            <button className="outOfHere">_</button>
+>>>>>>> feature/sologame
                 <button onClick={(event) => handleButtonPress(event, 'value')} value="0">0</button>
                 <button onClick={(event) => handleButtonPress(event, 'value')} value="delete" className="delete">&#9249;</button>
             </section>

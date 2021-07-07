@@ -5,7 +5,7 @@ const GameResults = ({playerScores}) => {
     return (
         <>
             <p className="results-header">Game Results</p>
-            <p className="results">{playerScores[0].score} <span>points</span></p>
+            <p className="results">{playerTotalScore} points</p>
             <Link to="/"><button>Home</button></Link>
         </>
     );

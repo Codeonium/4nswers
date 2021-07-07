@@ -20,7 +20,14 @@ const Game = () => {
     const [showScore, setShowScore] = useState(false);
     const [endOfGame, setEndOfGame] = useState(false);
     const [showResults, setShowResults] = useState(false);
+<<<<<<< HEAD
     const [playerScores, setPlayerScores] = useState([]);
+=======
+
+    const getRandomNumber = (maxNumber) => {
+        return Math.floor(Math.random() * (maxNumber + 1));
+    }
+>>>>>>> feature/sologame
 
     const handleInputChange = (event) => {
         
@@ -38,8 +45,7 @@ const Game = () => {
         }
     }
 
-
-    const startTimer = () => {
+    const setTimer = () => {
             const interval = setInterval(() => {
                     setTimeRemaining(timeRemaining => timeRemaining - 1000);
             }, 1000);
@@ -64,47 +70,22 @@ const Game = () => {
         setShowResults(true);
     }
 
+
     useEffect(() => {
-        socket.emit('start game');
+        for (let i = 0; i < gameRound; i++) {
+            setPlaceholder(placeholder + " _ ");
+        }
+    }, [gameRound])
 
-        socket.on('idReturned', (data) => {
-            setConnectionId(data);
-            console.log('id returned', data);
-        })
-    
-        socket.on('message', (msg) => {
-            console.log(msg);
-        })
+    useEffect(() => {
+        fetch(`https://quest-questions-answers-api.herokuapp.com/${gameRound}`)
+        .then(res => res.json())
+        .then(data => {
+            const randomQuestionIndex = getRandomNumber(data.length - 1)
+            setQuestion(data[randomQuestionIndex])
+        });
+    }, [gameRound])
 
-        socket.on('question', (data) => {
-            setQuestion(data);
-            setGameRound(data.roundNumber);
-            startTimer();
-        })
-
-        socket.on('roundScore', (data) => {
-            setPlayerRoundScore(data);
-            addToTotalScore();
-            setShowScore(true);
-            nextRound();
-            setTimeout(() => {
-                setShowScore(false);
-            }, 2000)
-        })
-
-        socket.on('placeholder', (data) => {
-            setPlaceholder(data);
-        })
-
-        socket.on('endOfGame', (data) => {
-            setPlayerScores(data);
-            setEndOfGame(true);
-            setShowResults(true);
-            socket.disconnect();
-            socket.connect();
-        })
-
-    }, [])
 
     useEffect(() => {
         if (timeRemaining <=  0) {
