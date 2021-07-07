@@ -1,19 +1,15 @@
 import {useState, useEffect} from 'react'
-import io from 'socket.io/client-dist/socket.io';
 
 import GamePlay from '../components/GamePlay.js'
 import GameResults from '../components/GameResults.js'
 
-const socket = io("http://localhost:3001");
-
 const Game = () => {
 
-    const [connectionId, setConnectionId] = useState("");
     const [gameRound, setGameRound] = useState(1);
     const [playerInput, setPlayerInput] = useState("");
     const [placeholder, setPlaceholder] = useState("");
     const [question, setQuestion] = useState({});
-    const [timeRemaining, setTimeRemaining] = useState(8 * 1000);
+    const [timeRemaining, setTimeRemaining] = useState(5 * 1000);
     const [intervalId, setIntervalId] = useState(null);
     const [playerRoundScore, setPlayerRoundScore] = useState(0);
     const [playerTotalScore, setPlayerTotalScore] = useState(0);
@@ -26,10 +22,9 @@ const Game = () => {
     }
 
     const handleInputChange = (event) => {
-        
         const keyPressed = event.key;
         if((event.target.value === "delete" || keyPressed === "Backspace") && playerInput.length > 0) {
-            setPlayerInput(playerInput.slice(0, -1));
+            setPlayerInput(playerInput.slice(0, -1))
             return;
         }
         if (event.type === "click" && playerInput.length < gameRound) {
@@ -48,14 +43,33 @@ const Game = () => {
             setIntervalId(interval);            
     }
 
-    const stopTimer = () => {
+    const stopCountdown = () => {
         clearInterval(intervalId);
         setIntervalId(null);
     }
 
     const nextRound = () => {
-        setPlayerInput("");
-        setTimeRemaining(8000);
+        calculateRoundScore();
+        setShowScore(true);
+        if (gameRound === 4) {
+            setEndOfGame(true);
+            setShowResults(true);
+        }
+        setTimeout(() => {
+            if (gameRound < 4) {
+                setShowScore(false);
+                setGameRound(gameRound + 1);
+                setTimeRemaining(5 * 1000);
+                setTimer();
+                setPlayerInput("");
+            }
+
+        }, 3000)
+        
+    }
+
+    const calculateRoundScore = () => {
+        setPlayerRoundScore(( playerInput / Math.max(playerInput, 1) ) * (10000 - (Math.abs(question.answer - playerInput) * (10 ** (4 - gameRound)))));
     }
 
     const addToTotalScore = () => {
@@ -82,20 +96,20 @@ const Game = () => {
         });
     }, [gameRound])
 
+    useEffect(() => {
+        setTimer();
+    }, [])
 
     useEffect(() => {
-        if (timeRemaining <=  0) {
-            stopTimer();
-            setTimeRemaining(0);
-            socket.emit('playerInput', {input: playerInput, userId: connectionId});
+        if(timeRemaining <= 0 ) {
+            stopCountdown();
+            nextRound();
         }
     }, [timeRemaining])
 
     useEffect(() => {
-        for (let i = 1; i <= gameRound; i++) {
-            setPlaceholder( placeholder + " - ");
-        }
-    }, [gameRound])
+        addToTotalScore();
+    }, [gameRound, endOfGame])
     
     return (
         <>
@@ -113,6 +127,7 @@ const Game = () => {
                     handleShowResultsButton={() => handleShowResultsButton()}
             />
             ) : (
+                <GameResults playerTotalScore={playerTotalScore}/>
             )}
             
         </>
