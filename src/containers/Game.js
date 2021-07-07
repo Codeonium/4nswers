@@ -113,7 +113,6 @@ const Game = () => {
                     handleShowResultsButton={() => handleShowResultsButton()}
             />
             ) : (
-                <GameResults playerScores={playerScores}/>
             )}
             
         </>
