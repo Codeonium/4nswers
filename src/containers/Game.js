@@ -20,14 +20,10 @@ const Game = () => {
     const [showScore, setShowScore] = useState(false);
     const [endOfGame, setEndOfGame] = useState(false);
     const [showResults, setShowResults] = useState(false);
-<<<<<<< HEAD
-    const [playerScores, setPlayerScores] = useState([]);
-=======
 
     const getRandomNumber = (maxNumber) => {
         return Math.floor(Math.random() * (maxNumber + 1));
     }
->>>>>>> feature/sologame
 
     const handleInputChange = (event) => {
         
