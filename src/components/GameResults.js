@@ -1,7 +1,6 @@
 import {Link} from 'react-router-dom';
-import './Results.css'
 
-const GameResults = ({playerScores}) => {
+const GameResults = ({playerTotalScore}) => {
     return (
         <>
             <p className="results-header">Game Results</p>
