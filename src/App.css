@@ -1,9 +1,22 @@
+
 @import url("https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Patrick+Hand&family=Permanent+Marker&display=swap");
 
 body {
   text-align: center;
   background-color: rgb(37, 38, 75);
   color: rgb(255, 0, 153);
+  animation: fade 15s ease infinite;
 }
 
-
+@keyframes fade {
+  0% {
+      background-color: rgb(37, 38, 75);
+  }
+  50% {
+      background-color: rgb(45, 41, 87);
+  }
+  100% {
+      background-color: rgb(37, 38, 75);
+  }
+}

@@ -20,8 +20,9 @@ const Keypad = ({handleButtonPress}) => {
                 <button onClick={(event) => handleButtonPress(event, 'value')} value="9">9</button>
             </section>
             <section>
+            <button className="outOfHere">_</button>
                 <button onClick={(event) => handleButtonPress(event, 'value')} value="0">0</button>
-                <button onClick={(event) => handleButtonPress(event, 'value')} value="delete" className="delete"><img src="https://cdn3.iconfinder.com/data/icons/social-productivity-line-art-3/128/delete-512.png" alt="delete" /></button>
+                <button onClick={(event) => handleButtonPress(event, 'value')} value="delete" className="delete">&#9249;</button>
             </section>
         </div>
     );

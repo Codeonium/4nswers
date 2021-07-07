@@ -1,40 +1,41 @@
 .timer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    margin: 20px;
-    border: 1px;
-    border-radius: 50%;
-    font-size: 5vh;
-    color: rgb(242, 255, 0);
-}
-
-.score {
-    position:fixed;
-    top: 15vh;
-    width: 100%;
-    backdrop-filter: blur(4px);
-    color: rgb(242, 255, 0);
-
-}
-
-.show-results {
-    /* background-color: orange; */
-    position: fixed;
-    bottom: 0vh;
-    right: 0;
-    font-size: 5vh;
-    font-weight: normal;
-    cursor: pointer;
-    width: 30%;
-    color: rgb(242, 255, 0);
-}
-
-.results-header {
-    font-size: 20px;
-}
-
-.results {
-    color: rgb(242, 255, 0);
-    font-weight: bolder;
-}
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        margin: 20px;
+        border: 1px;
+        border-radius: 50%;
+        font-size: 5vh;
+        color: rgb(242, 255, 0);
+    }
+    
+    .score {
+        position:fixed;
+        top: 30vh;
+        width: 100%;
+        /* backdrop-filter: blur(4px); */
+        color: rgb(242, 255, 0) !important;
+    
+    }
+    
+    .show-results {
+        /* background-color: orange; */
+        position: fixed;
+        bottom: 0vh;
+        right: 0;
+        font-size: 5vh;
+        font-weight: normal;
+        cursor: pointer;
+        width: 30%;
+        color: rgb(242, 255, 0);
+    }
+    
+    .results-header {
+        margin: 5vh 0;
+        font-size: 20px;
+    }
+    
+    .results {
+        color: rgb(242, 255, 0);
+        font-weight: bolder;
+    }

@@ -1,5 +1,4 @@
 import {useState, useEffect} from 'react'
-import io from 'socket.io/client-dist/socket.io';
 
 import GamePlay from '../components/GamePlay.js'
 import GameResults from '../components/GameResults.js'
@@ -81,14 +80,6 @@ const Game = () => {
         setShowResults(true);
     }
 
-    useEffect(() => {
-        const socket = io("http://localhost:3001");
-        socket.emit('tasty message', 'this is a tasty message');
-
-        socket.on('message', (msg) => {
-            console.log(msg);
-        })
-    }, [])
 
     useEffect(() => {
         for (let i = 0; i < gameRound; i++) {
@@ -100,7 +91,7 @@ const Game = () => {
         fetch(`https://quest-questions-answers-api.herokuapp.com/${gameRound}`)
         .then(res => res.json())
         .then(data => {
-            const randomQuestionIndex = getRandomNumber(data.length)
+            const randomQuestionIndex = getRandomNumber(data.length - 1)
             setQuestion(data[randomQuestionIndex])
         });
     }, [gameRound])
