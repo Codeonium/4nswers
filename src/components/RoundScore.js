@@ -1,7 +1,7 @@
 const RoundScore = ({playerRoundScore, showScore}) => {
     if (showScore) {
         return (
-            <h2 class="score">+ {playerRoundScore.toLocaleString()} points!</h2>
+            <h2 className="score title">+ {playerRoundScore.toLocaleString()} points!</h2>
         );
     } else {
         return (

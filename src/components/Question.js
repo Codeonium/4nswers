@@ -2,8 +2,8 @@ import './Question.css'
 
 const Question = ({questionText}) => {
     return (
-        <section class="section-box">
-            <h3 class="question">{questionText}</h3>
+        <section className="section-box">
+            <h3 className="question">{questionText}</h3>
         </section>
 
     );

@@ -16,7 +16,7 @@ const GamePlay = ({gameRound, question, playerInput, placeholder, handleInputCha
             <Timer timeRemaining={timeRemaining}/>
             <RoundScore playerRoundScore={playerRoundScore} showScore={showScore}/>
             { endOfGame ? (
-                <button onClick={handleShowResultsButton} class="show-results">Show Result</button>
+                <button onClick={handleShowResultsButton} className="show-results">Show Result</button>
             ) : (
                 null
             )}

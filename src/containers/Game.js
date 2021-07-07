@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import io from 'socket.io/client-dist/socket.io';
 
 import GamePlay from '../components/GamePlay.js'
 import GameResults from '../components/GameResults.js'
@@ -18,17 +19,7 @@ const Game = () => {
     const [showResults, setShowResults] = useState(false);
 
     const getRandomNumber = (maxNumber) => {
-        return Math.min(Math.floor(Math.random() * (maxNumber + 1)), 16);
-    }
-
-
-    const fetchQuestion = () => {
-        fetch(`https://quest-questions-answers-api.herokuapp.com/${gameRound}`)
-        .then(res => res.json())
-        .then(data => {
-            const randomQuestionIndex = getRandomNumber(data.length)
-            setQuestion(data[randomQuestionIndex])
-        });
+        return Math.floor(Math.random() * (maxNumber + 1));
     }
 
     const handleInputChange = (event) => {
@@ -45,13 +36,6 @@ const Game = () => {
             setPlayerInput(playerInput + keyPressed);
         }
     }
-
-    const updatePlaceholder = () => {
-        for (let i = 0; i < gameRound; i++) {
-            setPlaceholder(placeholder + " _ ");
-        }
-    }
-
 
     const setTimer = () => {
             const interval = setInterval(() => {
@@ -98,11 +82,27 @@ const Game = () => {
     }
 
     useEffect(() => {
-        updatePlaceholder();
+        const socket = io("http://localhost:3001");
+        socket.emit('tasty message', 'this is a tasty message');
+
+        socket.on('message', (msg) => {
+            console.log(msg);
+        })
+    }, [])
+
+    useEffect(() => {
+        for (let i = 0; i < gameRound; i++) {
+            setPlaceholder(placeholder + " _ ");
+        }
     }, [gameRound])
 
     useEffect(() => {
-        fetchQuestion();
+        fetch(`https://quest-questions-answers-api.herokuapp.com/${gameRound}`)
+        .then(res => res.json())
+        .then(data => {
+            const randomQuestionIndex = getRandomNumber(data.length)
+            setQuestion(data[randomQuestionIndex])
+        });
     }, [gameRound])
 
     useEffect(() => {
